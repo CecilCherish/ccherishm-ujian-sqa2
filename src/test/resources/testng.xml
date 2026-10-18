@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="CoreBankingTestSuite" verbose="1">
+
+    <!-- Parameter global (berlaku untuk semua tag test) -->
+    <parameter name="channel" value="MOBILE_BANKING" />
+    <parameter name="environment" value="STAGING-01" />
+
+    <listeners>
+        <listener class-name="com.juaracoding.banking.BankingTestListener" />
+    </listeners>
+
+    <!-- Tag 1: modul otentikasi, filter grup smoke -->
+    <test name="AuthenticationSmokeTests">
+        <groups>
+            <run>
+                <include name="smoke" />
+            </run>
+        </groups>
+        <classes>
+            <class name="com.juaracoding.banking.test.auth.AuthenticationTest" />
+        </classes>
+    </test>
+
+    <!-- Tag 2: modul transfer data-driven, filter grup regression -->
+    <test name="TransferRegressionTests">
+        <groups>
+            <run>
+                <include name="regression" />
+            </run>
+        </groups>
+        <classes>
+            <class name="com.juaracoding.banking.test.transfer.FraudDetectionTransferTest" />
+            <class name="com.juaracoding.banking.test.transfer.FundTransferTest" />
+        </classes>
+    </test>
+
+</suite>
